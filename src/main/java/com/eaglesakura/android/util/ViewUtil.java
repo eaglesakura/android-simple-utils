@@ -20,8 +20,6 @@ public class ViewUtil {
 
     /**
      * CardView配下のitemを横幅に合わせてマッチングする
-     *
-     * @param itemView
      */
     public static void matchCardWidth(View itemView) {
         if (itemView.getLayoutParams() == null) {
@@ -33,9 +31,6 @@ public class ViewUtil {
      * ImageViewの横幅いっぱいになるようにセットする
      * <br>
      * Viewの高さは画像に合わせて変更される。
-     *
-     * @param view
-     * @param image
      */
     public static void setWidthMatchImage(ImageView view, Bitmap image) {
         Matrix matrix = new Matrix();
@@ -55,9 +50,6 @@ public class ViewUtil {
 
     /**
      * Viewの高さを再設定する
-     *
-     * @param itemView
-     * @param height
      */
     public static void setViewHeight(View itemView, int height) {
         ViewGroup.LayoutParams params = itemView.getLayoutParams();
@@ -67,9 +59,6 @@ public class ViewUtil {
 
     /**
      * カーソル位置にテキストを挿入する
-     *
-     * @param editText
-     * @param text
      */
     public static void insertTextInCursor(EditText editText, String text) {
         int start = editText.getSelectionStart();
@@ -80,8 +69,6 @@ public class ViewUtil {
 
     /**
      * 入力を整数に限るようにする
-     *
-     * @param editText
      */
     public static void setInputIntegerOnly(EditText editText) {
         editText.setMaxLines(1);
@@ -90,8 +77,6 @@ public class ViewUtil {
 
     /**
      * 入力を数値に限るようにする
-     *
-     * @param editText
      */
     public static void setInputDecimal(EditText editText) {
         editText.setMaxLines(1);
@@ -100,10 +85,6 @@ public class ViewUtil {
 
     /**
      * 実数を取得する
-     *
-     * @param text
-     * @param defValue
-     * @return
      */
     public static double getDoubleValue(EditText text, double defValue) {
         try {
@@ -115,10 +96,6 @@ public class ViewUtil {
 
     /**
      * 整数を取得する
-     *
-     * @param text
-     * @param defValue
-     * @return
      */
     public static long getLongValue(EditText text, long defValue) {
         try {

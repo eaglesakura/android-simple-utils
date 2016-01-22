@@ -9,9 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class PermissionUtil {
@@ -63,9 +61,6 @@ public class PermissionUtil {
 
     /**
      * パーミッション一覧を取得する
-     *
-     * @param types
-     * @return
      */
     public static Set<String> listPermissions(PermissionType[] types) {
         Set<String> result = new HashSet<>();
@@ -80,9 +75,6 @@ public class PermissionUtil {
 
     /**
      * パーミッション一覧を取得する
-     *
-     * @param types
-     * @return
      */
     public static Set<String> listPermissions(Iterable<PermissionType> types) {
         Set<String> result = new HashSet<>();
@@ -120,11 +112,6 @@ public class PermissionUtil {
 
     /**
      * 指定したPermissionに対応していたらtrue
-     *
-     * @param packageManager
-     * @param info
-     * @param permissionName
-     * @return
      */
     public static boolean supportedPermission(PackageManager packageManager, PackageInfo info, String permissionName) {
         return packageManager.checkPermission(permissionName, info.packageName) == PackageManager.PERMISSION_GRANTED;
@@ -132,9 +119,6 @@ public class PermissionUtil {
 
     /**
      * システムレイヤーへのオーバーレイが許可されている場合はtrue
-     *
-     * @param context
-     * @return
      */
     public static boolean canDrawOverlays(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {

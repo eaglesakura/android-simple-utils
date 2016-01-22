@@ -1,10 +1,10 @@
 package com.eaglesakura.android.device.sound;
 
+import com.eaglesakura.util.LogUtil;
+
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
-
-import com.eaglesakura.util.LogUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,8 +44,6 @@ public class SoundPoolManager {
 
     /**
      * 読み込みを行う
-     *
-     * @param rawId
      */
     public void load(Object id, int rawId) {
         int soundId = soundPool.load(context, rawId, 0);
@@ -54,8 +52,6 @@ public class SoundPoolManager {
 
     /**
      * 読み込みを行う
-     *
-     * @param rawId
      */
     public void load(int rawId) {
         load(rawId, rawId);
@@ -63,8 +59,6 @@ public class SoundPoolManager {
 
     /**
      * 読み込みを行う
-     *
-     * @param id
      */
     public void play(Object id, boolean loop) {
         Integer soundId = soundEffects.get(id);

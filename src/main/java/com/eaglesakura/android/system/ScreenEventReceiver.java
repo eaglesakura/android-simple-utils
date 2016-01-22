@@ -1,11 +1,11 @@
 package com.eaglesakura.android.system;
 
+import com.eaglesakura.android.util.ContextUtil;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-
-import com.eaglesakura.android.util.ContextUtil;
 
 /**
  * スクリーンOn/Offの検出を行うUtil
@@ -29,9 +29,6 @@ public class ScreenEventReceiver extends BroadcastReceiver {
 
     /**
      * イベント受け取り
-     *
-     * @param context
-     * @param intent
      */
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -47,8 +44,6 @@ public class ScreenEventReceiver extends BroadcastReceiver {
 
     /**
      * スクリーンONの状態であればtrue
-     *
-     * @return
      */
     public boolean isScreenPowerOn() {
         return screenPowerOn;

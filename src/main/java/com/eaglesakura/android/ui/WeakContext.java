@@ -81,8 +81,6 @@ public class WeakContext {
 
     /**
      * オーナーオブジェクトが有効であればtrue
-     *
-     * @return
      */
     public boolean isExistOwner() {
         return owner.get() != null;
@@ -90,8 +88,6 @@ public class WeakContext {
 
     /**
      * app context
-     *
-     * @return
      */
     public Context getApplicationContext() {
         return appContext;

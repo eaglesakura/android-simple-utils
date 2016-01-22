@@ -7,8 +7,6 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.view.TextureView;
@@ -79,9 +77,6 @@ public class AndroidUtil {
 
     /**
      * 実行されている端末がデバッグモードになっている場合はtrueを返す
-     *
-     * @param context
-     * @return
      */
     public static boolean isDeviceDebugMode(Context context) {
         return Settings.Secure.getInt(context.getContentResolver(), Settings.Global.ADB_ENABLED, 0) != 0;

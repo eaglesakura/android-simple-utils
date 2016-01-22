@@ -67,8 +67,6 @@ public class BatteryEventReceiver extends BroadcastReceiver {
 
     /**
      * 接続状態が変化した
-     *
-     * @param newState
      */
     protected void onPowerConnectStateChanged(boolean newState) {
 
@@ -76,8 +74,6 @@ public class BatteryEventReceiver extends BroadcastReceiver {
 
     /**
      * バッテリー残量が変化した
-     *
-     * @param newState
      */
     protected void onBatteryLevelChanged(float newState) {
 

@@ -1,12 +1,12 @@
 package com.eaglesakura.android.app;
 
+import com.eaglesakura.android.util.PermissionUtil;
+import com.eaglesakura.util.Util;
+
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-
-import com.eaglesakura.android.util.PermissionUtil;
-import com.eaglesakura.util.Util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,9 +26,6 @@ public class ApplicationFilter {
 
     /**
      * 特定Permissionでフィルタする
-     *
-     * @param permission
-     * @return
      */
     public ApplicationFilter filterPermission(String permission) {
         return andPermission(Util.convert(new String[]{
@@ -38,8 +35,6 @@ public class ApplicationFilter {
 
     /**
      * 全Permissionを含んだアプリを列挙する
-     *
-     * @param permissions
      */
     public ApplicationFilter andPermission(List<String> permissions) {
         Iterator<PackageInfo> iterator = packages.iterator();
@@ -64,8 +59,6 @@ public class ApplicationFilter {
 
     /**
      * フィルタしたインストール済みアプリ一覧を取得する
-     *
-     * @return
      */
     public List<PackageInfo> getPackageInfos() {
         return packages;
@@ -73,8 +66,6 @@ public class ApplicationFilter {
 
     /**
      * アプリケーション情報を取り出す
-     *
-     * @return
      */
     public List<ApplicationInfo> getApplicationInfos(boolean loadLabel) {
         List<ApplicationInfo> result = new ArrayList<ApplicationInfo>();

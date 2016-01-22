@@ -1,12 +1,12 @@
 package com.eaglesakura.android.device.external;
 
+import com.eaglesakura.util.StringUtil;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
-
-import com.eaglesakura.util.StringUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 端末のストレージ情報を管理する
  */
- @SuppressLint("all")
+@SuppressLint("all")
 public class StorageInfo {
     /**
      * 外部接続されたストレージであればtrue
@@ -85,8 +85,6 @@ public class StorageInfo {
 
     /**
      * 外部ストレージ一覧を取得する
-     *
-     * @return
      */
     public synchronized static List<StorageInfo> listExternalStorages() {
         List<StorageInfo> result = new ArrayList<>();

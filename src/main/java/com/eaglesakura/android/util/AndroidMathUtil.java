@@ -9,8 +9,6 @@ public class AndroidMathUtil {
 
     /**
      * RectFを四捨五入で丸める。
-     *
-     * @param rect
      */
     public static void round(RectF rect) {
         rect.left = Math.round(rect.left);

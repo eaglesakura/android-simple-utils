@@ -1,12 +1,12 @@
 package com.eaglesakura.android.device.sound;
 
+import com.eaglesakura.util.LogUtil;
+
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-
-import com.eaglesakura.util.LogUtil;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,8 +31,6 @@ public class SoundManager {
 
     /**
      * {@link AudioManager#STREAM_MUSIC}がデフォルトで設定されている。
-     *
-     * @param streamType
      */
     public void setStreamType(int streamType) {
         this.streamType = streamType;
@@ -48,7 +46,6 @@ public class SoundManager {
      *
      * @param id     再生に利用する効果音ID
      * @param source 音源URI
-     *
      * @return 成功した場合true
      */
     public boolean load(Object id, Uri source) {
@@ -113,8 +110,6 @@ public class SoundManager {
 
     /**
      * 指定したIDの効果音を解放する。
-     *
-     * @param id
      */
     public void unload(Object id) {
         MediaPlayer player = medias.get(id);
@@ -126,10 +121,6 @@ public class SoundManager {
 
     /**
      * ロード済みだったらtrueを返す。
-     *
-     * @param id
-     *
-     * @return
      */
     public boolean isLoaded(Object id) {
         return medias.get(id) != null;

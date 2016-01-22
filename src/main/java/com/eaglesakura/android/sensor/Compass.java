@@ -1,12 +1,12 @@
 package com.eaglesakura.android.sensor;
 
+import com.eaglesakura.math.Vector3;
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-
-import com.eaglesakura.math.Vector3;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,5 +1,8 @@
 package com.eaglesakura.android.util;
 
+import com.eaglesakura.math.Vector2;
+import com.eaglesakura.util.EncodeUtil;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -24,9 +27,6 @@ import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-
-import com.eaglesakura.math.Vector2;
-import com.eaglesakura.util.EncodeUtil;
 
 import java.util.List;
 import java.util.UUID;
@@ -64,9 +64,6 @@ public class ContextUtil {
 
     /**
      * ディスプレイの回転角を取得する
-     *
-     * @param context
-     * @return
      */
     public static int getDeviceRotateDegree(Context context) {
         final int surfaceRotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
@@ -110,10 +107,6 @@ public class ContextUtil {
     /**
      * ディスプレイのWHサイズを取得する。
      * WindowManagerによる利用可能サイズが基準となる。
-     *
-     * @param context
-     * @param result
-     * @return
      */
     public static Vector2 getDisplaySize(Context context, Vector2 result) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -133,9 +126,6 @@ public class ContextUtil {
 
     /**
      * ディスプレイのWHサイズを取得する
-     *
-     * @param context
-     * @return
      */
     public static int[] getDisplaySize(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -145,9 +135,6 @@ public class ContextUtil {
 
     /**
      * 指定方向に端末画面を固定する。
-     *
-     * @param context
-     * @param isVertical
      */
     public static void setOrientation(Context context, boolean isVertical) {
         try {
@@ -164,8 +151,6 @@ public class ContextUtil {
 
     /**
      * 設定を反転する。
-     *
-     * @param context
      */
     public static void toggleOrientationFixed(Context context) {
         try {
@@ -205,8 +190,6 @@ public class ContextUtil {
     /**
      * DP-＞Pixを変換して返す。
      *
-     * @param dp
-     * @param context
      * @return 画面上のピクセル数。ただし、1ピクセル単位に四捨五入されている。
      */
     public static int dpToPix(float dp, Context context) {
@@ -218,8 +201,6 @@ public class ContextUtil {
 
     /**
      * デバッグモードならtrueを返す。
-     *
-     * @return
      */
     public static boolean isDebug(Context context) {
         PackageManager manager = context.getPackageManager();
@@ -260,8 +241,6 @@ public class ContextUtil {
 
     /**
      * ChildFragmentManagerに対応している場合はtrue
-     *
-     * @return
      */
     public static boolean supportedChildFragmentManager() {
         return Build.VERSION.SDK_INT >= 17;
@@ -269,8 +248,6 @@ public class ContextUtil {
 
     /**
      * Actionバーに対応している場合、trueを返す。
-     *
-     * @return
      */
     public static boolean supportedActionBar() {
         try {
@@ -292,13 +269,6 @@ public class ContextUtil {
 
     /**
      * 文字幅を指定した幅に収まるように抑えて取得する。
-     *
-     * @param text
-     * @param fooder
-     * @param context
-     * @param textSizeDimenId
-     * @param textWidthDimenId
-     * @return
      */
     public static String getCompactString(String text, String fooder, Context context, int textSizeDimenId, int textWidthDimenId) {
         int textPixelSize = context.getResources().getDimensionPixelSize(textSizeDimenId);
@@ -309,9 +279,6 @@ public class ContextUtil {
 
     /**
      * 文字列を指定した幅に収まるように抑えて取得する。
-     *
-     * @param origin
-     * @return
      */
     public static String getCompactString(String origin, String fooder, Typeface type, int textSize, int maxWidth) {
         Paint paint = new Paint();
@@ -347,8 +314,6 @@ public class ContextUtil {
 
     /**
      * おそらく重複することが無いであろうユニークな文字列を吐き出す。
-     *
-     * @return
      */
     public static String genUUID() {
         String result = null;
@@ -364,9 +329,6 @@ public class ContextUtil {
 
     /**
      * 画面が点灯状態だったらtrueを返す
-     *
-     * @param context
-     * @return
      */
     public static boolean isScreenPowerOn(Context context) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -389,10 +351,6 @@ public class ContextUtil {
 
     /**
      * 指定クラスが起動中であればtrueを返す
-     *
-     * @param context
-     * @param clazz
-     * @return
      */
     public static boolean isServiceRunning(Context context, Class<? extends Service> clazz) {
         try {
@@ -414,10 +372,6 @@ public class ContextUtil {
 
     /**
      * string xmlリソース名から文字列リソースを取得する
-     *
-     * @param context
-     * @param resName
-     * @return
      */
     public static String getStringFromIdName(Context context, String resName) {
         try {
@@ -435,10 +389,6 @@ public class ContextUtil {
 
     /**
      * string xmlリソース名から文字列リソースを取得する
-     *
-     * @param context
-     * @param resName
-     * @return
      */
     public static Integer getIntegerFromIdName(Context context, String resName) {
         try {
@@ -458,10 +408,6 @@ public class ContextUtil {
      * CPUのスリープを不許可にする。
      * <br>
      * 戻り値のWakeLockは既にacquire()済みのため、releaseのみに気をつけること。
-     *
-     * @param context
-     * @param sender
-     * @return
      */
     public static PowerManager.WakeLock cpuWakeLock(Context context, Object sender) {
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);

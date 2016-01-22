@@ -1,5 +1,9 @@
 package com.eaglesakura.android.util;
 
+import com.eaglesakura.util.IOUtil;
+import com.eaglesakura.util.LogUtil;
+import com.eaglesakura.util.MathUtil;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -10,10 +14,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.media.ExifInterface;
-
-import com.eaglesakura.util.IOUtil;
-import com.eaglesakura.util.MathUtil;
-import com.eaglesakura.util.LogUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -27,9 +27,6 @@ public class ImageUtil {
      * 計算はIllustrator方式で行う
      * <br>
      * http://appakumaturi.hatenablog.com/entry/20120121/1327143125
-     *
-     * @param xrgb
-     * @return
      */
     public static int getComplementaryColor(int xrgb) {
         int r = Color.red(xrgb);
@@ -46,9 +43,6 @@ public class ImageUtil {
 
     /**
      * 反転色を取得する
-     *
-     * @param xrgb
-     * @return
      */
     public static int getNegaColor(int xrgb) {
         int r = Color.red(xrgb);
@@ -60,9 +54,6 @@ public class ImageUtil {
 
     /**
      * 画像からSHA1指紋を作成する。
-     *
-     * @param bitmap
-     * @return
      */
     public static String genSHA1(Bitmap bitmap) {
         final int[] pixels = new int[bitmap.getWidth()];
@@ -96,9 +87,6 @@ public class ImageUtil {
 
     /**
      * Bitmapからサムネイルを読み込む
-     *
-     * @param pathName
-     * @return
      */
     public static Bitmap decodeThumbnail(String pathName) {
         try {
@@ -112,9 +100,6 @@ public class ImageUtil {
 
     /**
      * image bufferからデコードする
-     *
-     * @param imageFile
-     * @return
      */
     public static Bitmap decode(byte[] imageFile) {
         if (imageFile == null) {
@@ -141,9 +126,6 @@ public class ImageUtil {
 
     /**
      * 画像ファイルから直接デコードする
-     *
-     * @param pathName
-     * @return
      */
     public static Bitmap decode(String pathName) {
         try {
@@ -156,9 +138,6 @@ public class ImageUtil {
 
     /**
      * デコードする
-     *
-     * @param stream
-     * @return
      */
     public static Bitmap decode(InputStream stream) {
         try {
@@ -170,9 +149,6 @@ public class ImageUtil {
 
     /**
      * PNG画像にエンコードする
-     *
-     * @param bitmap
-     * @return
      */
     public static byte[] encodePng(Bitmap bitmap) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -186,10 +162,6 @@ public class ImageUtil {
 
     /**
      * Jpeg画像にエンコードする
-     *
-     * @param bitmap
-     * @param quality
-     * @return
      */
     public static byte[] encodeJpeg(Bitmap bitmap, int quality) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -205,11 +177,6 @@ public class ImageUtil {
      * 指定した最大サイズに収まるようにスケーリングする
      * <br>
      * 元のsrcオブジェクトをそのまま返す場合があるので注意。
-     *
-     * @param src
-     * @param maxWidth
-     * @param maxHeight
-     * @return
      */
     public static Bitmap toScaledImage(Bitmap src, int maxWidth, int maxHeight) {
         int originWidth = src.getWidth();
@@ -239,10 +206,6 @@ public class ImageUtil {
 
     /**
      * アルファ値をブレンドした新たな画像を生成する
-     *
-     * @param src
-     * @param alpha
-     * @return
      */
     public static Bitmap blendAlpha(Bitmap src, Bitmap alpha) {
         // アルファ成分をコピーして作成

@@ -1,5 +1,9 @@
 package com.eaglesakura.android.xml;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,10 +12,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 /**
  * XMLの要素を定義する。
@@ -57,8 +57,6 @@ public class XmlElement {
 
     /**
      * XMLタグを取得する
-     *
-     * @return
      */
     public String getTag() {
         return tag;
@@ -66,8 +64,6 @@ public class XmlElement {
 
     /**
      * メインコンテンツを取得する
-     *
-     * @return
      */
     public String getContent() {
         return content;
@@ -75,8 +71,6 @@ public class XmlElement {
 
     /**
      * ネームスペースを取得する
-     *
-     * @return
      */
     public String getNamespace() {
         return nspace;
@@ -84,9 +78,6 @@ public class XmlElement {
 
     /**
      * サブコンテンツを取得する
-     *
-     * @param key
-     * @return
      */
     public String getAttribute(String key) {
         return attributes.get(key);
@@ -94,8 +85,6 @@ public class XmlElement {
 
     /**
      * 子を追加する
-     *
-     * @param element
      */
     private void addChild(XmlElement element) {
         childs.add(element);
@@ -104,9 +93,6 @@ public class XmlElement {
 
     /**
      * 子要素の持つコンテンツを文字列として取得する
-     *
-     * @param tag
-     * @return
      */
     public String childToString(String tag) {
         Iterator<XmlElement> iterator = childs.iterator();
@@ -123,10 +109,6 @@ public class XmlElement {
 
     /**
      * 子要素の持つコンテンツを整数として取得する
-     *
-     * @param tag
-     * @param def
-     * @return
      */
     public int childToInt(String tag, int def) {
         String value = childToString(tag);
@@ -139,10 +121,6 @@ public class XmlElement {
 
     /**
      * 子要素の持つコンテンツを実数として取得する
-     *
-     * @param tag
-     * @param def
-     * @return
      */
     public double childToDouble(String tag, double def) {
         String value = childToString(tag);
@@ -156,10 +134,6 @@ public class XmlElement {
     /**
      * 指定子要素の指定属性を取得する
      * 失敗したらnullを返す
-     *
-     * @param tag
-     * @param attribute
-     * @return
      */
     public String childAttributeToString(String tag, String attribute) {
         XmlElement child = getChild(tag);
@@ -172,9 +146,6 @@ public class XmlElement {
 
     /**
      * 一致するタグの子エレメントを列挙する
-     *
-     * @param tag
-     * @return
      */
     public List<XmlElement> listChilds(String tag) {
         List<XmlElement> result = new ArrayList<XmlElement>();
@@ -197,9 +168,6 @@ public class XmlElement {
 
     /**
      * 指定した名前の子要素を列挙してコールバックする
-     *
-     * @param tag
-     * @param callback
      */
     public void listChilds(String tag, EnumlateCallback callback) {
         Iterator<XmlElement> iterator = childs.iterator();
@@ -214,9 +182,6 @@ public class XmlElement {
 
     /**
      * 指定した子要素を取得する。
-     *
-     * @param tag
-     * @return
      */
     public XmlElement getChild(String tag) {
         Iterator<XmlElement> iterator = childs.iterator();
@@ -233,8 +198,6 @@ public class XmlElement {
 
     /**
      * 親属性を取得する
-     *
-     * @return
      */
     public XmlElement getParent() {
         return parent;

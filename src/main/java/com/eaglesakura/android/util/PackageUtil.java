@@ -1,7 +1,6 @@
 package com.eaglesakura.android.util;
 
-import java.io.File;
-import java.util.List;
+import com.eaglesakura.util.StringUtil;
 
 import android.app.ActivityManager;
 import android.app.usage.UsageEvents;
@@ -13,15 +12,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 
-import com.eaglesakura.util.StringUtil;
+import java.io.File;
+import java.util.List;
 
 public class PackageUtil {
 
     /**
      * 自分自身がTop Applicationとして起動している場合はtrue
-     *
-     * @param context
-     * @return
      */
     public static boolean isTopApplicationSelf(Context context) {
         return context.getPackageName().equals(getTopApplicationPackage(context));
@@ -29,9 +26,6 @@ public class PackageUtil {
 
     /**
      * ランチャー一覧を取得する
-     *
-     * @param context
-     * @return
      */
     public static List<ResolveInfo> listLauncherApplications(Context context) {
         PackageManager pm = context.getPackageManager();
@@ -42,9 +36,6 @@ public class PackageUtil {
 
     /**
      * インストールされているアプリのpackage名一覧を取得する
-     *
-     * @param context
-     * @return
      */
     public static List<ApplicationInfo> listInstallApplications(Context context) {
         PackageManager pm = context.getPackageManager();
@@ -54,9 +45,6 @@ public class PackageUtil {
 
     /**
      * トップに起動しているActivityのpackage nameを指定する
-     *
-     * @param context
-     * @return
      */
     public static String getTopApplicationPackage(Context context) {
 
@@ -102,9 +90,6 @@ public class PackageUtil {
      * パッケージ固有の情報を特定ディレクトリにdumpする。
      * 既にディレクトリが存在していた場合の挙動は"cp -R"コマンドの挙動に従う。
      * "cp -R context.getFilesDir() dst" を行う
-     *
-     * @param context
-     * @param dst
      */
     public static void dumpPackageDataDirectory(Context context, File dst) {
         try {
