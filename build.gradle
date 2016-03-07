@@ -22,13 +22,14 @@ repositories {
 
 apply plugin: 'com.android.library'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 23
@@ -48,8 +49,8 @@ dependencies {
         compile project(':eglibrary:simple-logger')
         compile project(':eglibrary:simple-utils')
     } else {
-        compile 'com.eaglesakura:simple-logger:1.0.+'
-        compile 'com.eaglesakura:simple-utils:1.0.+'
+        compile 'com.eaglesakura:simple-logger:1.+'
+        compile 'com.eaglesakura:simple-utils:1.+'
     }
 }
 
@@ -78,7 +79,8 @@ android.libraryVariants.all { variant ->
         exclude '**/DaoMaster.java' /* ignore greenDAO */
         exclude '**/DaoSession.java' /* ignore greenDAO */
         exclude '**/R.java' /* ignore greenDAO */
-
+        
+        options.addStringOption('Xdoclint:none', '-quiet')
         options.encoding = "UTF-8"
         project.configure(options) {
             memberLevel = org.gradle.external.javadoc.JavadocMemberLevel.PROTECTED
@@ -158,4 +160,3 @@ def getArtifactInstallTarget() {
         return file("ci-release");
     }
 }
-
