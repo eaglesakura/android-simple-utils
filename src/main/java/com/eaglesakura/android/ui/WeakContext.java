@@ -22,15 +22,6 @@ public class WeakContext {
     final private Context appContext;
 
     /**
-     * Fragmentから生成する
-     *
-     * @param fragment 生成元のFragment
-     */
-    public WeakContext(Fragment fragment) {
-        this(fragment, fragment.getActivity().getApplicationContext());
-    }
-
-    /**
      * Activityから生成する
      *
      * @param activity 生成元のActivity
