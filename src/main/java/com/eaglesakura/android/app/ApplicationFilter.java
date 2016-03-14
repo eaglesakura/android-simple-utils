@@ -1,6 +1,7 @@
 package com.eaglesakura.android.app;
 
 import com.eaglesakura.android.util.PermissionUtil;
+import com.eaglesakura.util.CollectionUtil;
 import com.eaglesakura.util.Util;
 
 import android.content.Context;
@@ -28,7 +29,7 @@ public class ApplicationFilter {
      * 特定Permissionでフィルタする
      */
     public ApplicationFilter filterPermission(String permission) {
-        return andPermission(Util.convert(new String[]{
+        return andPermission(CollectionUtil.asList(new String[]{
                 permission,
         }));
     }
