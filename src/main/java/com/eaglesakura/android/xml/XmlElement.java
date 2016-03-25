@@ -49,7 +49,7 @@ public class XmlElement {
     /**
      * 子要素を定義する
      */
-    List<XmlElement> childs = new ArrayList<XmlElement>();
+    List<XmlElement> childs = new ArrayList<>();
 
     public XmlElement() {
 
