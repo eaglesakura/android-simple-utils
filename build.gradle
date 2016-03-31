@@ -53,6 +53,8 @@ dependencies {
         compile 'com.eaglesakura:simple-utils:1.+'
     }
 
+    compile 'com.android.support:support-annotations:+'
+
     testCompile 'junit:junit:4.12'
     testCompile "org.robolectric:robolectric:3.0"
 }
