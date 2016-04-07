@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +37,22 @@ import java.util.UUID;
  */
 @SuppressLint("NewApi")
 public class ContextUtil {
+
+    /**
+     * オブジェクトからContext情報を得る
+     */
+    public static Context getContext(Object obj) {
+        try {
+            if (obj instanceof Context) {
+                return (Context) obj;
+            }
+
+            Method getContext = obj.getClass().getMethod("getContext");
+            return (Context) getContext.invoke(obj);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     public static int getVersionCode(Context context) {
         PackageManager packageManager = context.getPackageManager();
