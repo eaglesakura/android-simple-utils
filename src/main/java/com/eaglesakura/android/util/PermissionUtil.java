@@ -54,6 +54,16 @@ public class PermissionUtil {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 };
             }
+        },
+
+        ExternalStorage {
+            @Override
+            public String[] getPermissions() {
+                return new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                };
+            }
         };
 
         public abstract String[] getPermissions();

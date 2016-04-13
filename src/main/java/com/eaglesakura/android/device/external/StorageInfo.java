@@ -111,8 +111,9 @@ public class StorageInfo {
                 }
             }
 
-            if (!"/storage/emulated/legacy".equals(path) &&
-                    (check = new File(path)).exists()) {
+            if (!StringUtil.isEmpty(path)
+                    && !"/storage/emulated/legacy".equals(path)
+                    && (check = new File(path)).exists()) {
                 // emulatedじゃないパスがひっかかれば、それがSDカードパスになる
                 result.add(new StorageInfo(true, check));
                 result.add(new StorageInfo(false, Environment.getExternalStorageDirectory()));
