@@ -49,7 +49,7 @@ public class XmlElement {
     /**
      * 子要素を定義する
      */
-    List<XmlElement> childs = new ArrayList<>();
+    List<XmlElement> mChildren = new ArrayList<>();
 
     public XmlElement() {
 
@@ -87,7 +87,7 @@ public class XmlElement {
      * 子を追加する
      */
     private void addChild(XmlElement element) {
-        childs.add(element);
+        mChildren.add(element);
         element.parent = this;
     }
 
@@ -95,7 +95,7 @@ public class XmlElement {
      * 子要素の持つコンテンツを文字列として取得する
      */
     public String childToString(String tag) {
-        Iterator<XmlElement> iterator = childs.iterator();
+        Iterator<XmlElement> iterator = mChildren.iterator();
         while (iterator.hasNext()) {
             XmlElement child = iterator.next();
             if (child.getTag().equals(tag)) {
@@ -150,7 +150,7 @@ public class XmlElement {
     public List<XmlElement> listChilds(String tag) {
         List<XmlElement> result = new ArrayList<XmlElement>();
         {
-            Iterator<XmlElement> iterator = childs.iterator();
+            Iterator<XmlElement> iterator = mChildren.iterator();
             while (iterator.hasNext()) {
                 XmlElement element = iterator.next();
                 // タグが一致したから返す
@@ -170,7 +170,7 @@ public class XmlElement {
      * 指定した名前の子要素を列挙してコールバックする
      */
     public void listChilds(String tag, EnumlateCallback callback) {
-        Iterator<XmlElement> iterator = childs.iterator();
+        Iterator<XmlElement> iterator = mChildren.iterator();
         while (iterator.hasNext()) {
             XmlElement element = iterator.next();
             // タグが一致したから返す
@@ -180,15 +180,35 @@ public class XmlElement {
         }
     }
 
+    public List<XmlElement> listChildren() {
+        return mChildren;
+    }
+
     /**
      * 指定した子要素を取得する。
      */
     public XmlElement getChild(String tag) {
-        Iterator<XmlElement> iterator = childs.iterator();
+        Iterator<XmlElement> iterator = mChildren.iterator();
         while (iterator.hasNext()) {
             XmlElement element = iterator.next();
             // タグが一致したから返す
             if (element.getTag().equals(tag)) {
+                return element;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 指定した子要素からAttr名とAttr値が一致したエレメントを取得する
+     */
+    public XmlElement getChild(String tag, String attrName, String attrValue) {
+        Iterator<XmlElement> iterator = mChildren.iterator();
+        while (iterator.hasNext()) {
+            XmlElement element = iterator.next();
+            // タグが一致したから返す
+            if (element.getTag().equals(tag) && attrValue.equals(element.getAttribute(attrName))) {
                 return element;
             }
         }
