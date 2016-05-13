@@ -5,6 +5,7 @@ import com.eaglesakura.util.LogUtil;
 import com.eaglesakura.util.MathUtil;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -93,7 +94,7 @@ public class ImageUtil {
             ExifInterface exif = new ExifInterface(pathName);
             return decode(exif.getThumbnail());
         } catch (Exception e) {
-            LogUtil.log(e);
+            e.printStackTrace();
         }
         return null;
     }
@@ -109,7 +110,7 @@ public class ImageUtil {
         try {
             return BitmapFactory.decodeByteArray(imageFile, 0, imageFile.length);
         } catch (Exception e) {
-            LogUtil.log(e);
+            e.printStackTrace();
 
         }
         return null;
@@ -119,7 +120,20 @@ public class ImageUtil {
         try {
             return BitmapFactory.decodeResource(context.getResources(), drawableId);
         } catch (Exception e) {
-            LogUtil.log(e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Bitmap decode(AssetManager assets, String path) {
+        InputStream is = null;
+        try {
+            is = assets.open(path);
+            return BitmapFactory.decodeStream(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            IOUtil.close(is);
         }
         return null;
     }
