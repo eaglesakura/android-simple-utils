@@ -64,6 +64,15 @@ public class PermissionUtil {
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                 };
             }
+        },
+
+        Camera {
+            @Override
+            public String[] getPermissions() {
+                return new String[]{
+                        Manifest.permission.CAMERA
+                };
+            }
         };
 
         public abstract String[] getPermissions();
