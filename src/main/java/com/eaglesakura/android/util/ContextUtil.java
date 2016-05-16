@@ -355,6 +355,19 @@ public class ContextUtil {
     /**
      * IMEを閉じる
      *
+     * @param activity 対象のActivity
+     */
+    public static void closeIME(Activity activity) {
+        try {
+            closeIME(activity.getCurrentFocus(), activity);
+        } catch (Exception e) {
+
+        }
+    }
+
+    /**
+     * IMEを閉じる
+     *
      * @param context 対象のActivity
      */
     public static void closeIME(View focus, Activity context) {
