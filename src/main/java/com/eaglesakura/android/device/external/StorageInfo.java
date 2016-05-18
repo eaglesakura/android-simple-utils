@@ -1,5 +1,6 @@
 package com.eaglesakura.android.device.external;
 
+import com.eaglesakura.util.IOUtil;
 import com.eaglesakura.util.StringUtil;
 
 import android.annotation.SuppressLint;
@@ -129,9 +130,14 @@ public class StorageInfo {
 
     public static File getExternalStorageRoot(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            return context.getExternalFilesDir(null);
+            try {
+                return context.getExternalFilesDir(null);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+                return IOUtil.mkdirs(Environment.getExternalStorageDirectory());
+            }
         } else {
-            return Environment.getExternalStorageDirectory();
+            return IOUtil.mkdirs(Environment.getExternalStorageDirectory());
         }
     }
 }
