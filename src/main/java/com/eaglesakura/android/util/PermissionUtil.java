@@ -1,5 +1,7 @@
 package com.eaglesakura.android.util;
 
+import com.eaglesakura.util.CollectionUtil;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AppOpsManager;
@@ -9,7 +11,9 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class PermissionUtil {
@@ -110,11 +114,33 @@ public class PermissionUtil {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
-    public static boolean isRuntimePermissionGranted(Context context, PermissionType type) {
-        return isRuntimePermissionGranted(context, type.getPermissions());
+    /**
+     * Runtime Permissionチェックを行う
+     */
+    public static boolean isRuntimePermissionGranted(Context context, PermissionType... types) {
+        Set<String> permissions = new HashSet<>();
+        for (PermissionType type : types) {
+            for (String pm : type.getPermissions()) {
+                permissions.add(pm);
+            }
+        }
+        return isRuntimePermissionGranted(context, permissions);
     }
 
-    public static boolean isRuntimePermissionGranted(Context context, String[] permissions) {
+    /**
+     * Runtime Permissionチェックを行う
+     */
+    public static boolean isRuntimePermissionGranted(Context context, List<PermissionType> types) {
+        Set<String> permissions = new HashSet<>();
+        for (PermissionType type : types) {
+            for (String pm : type.getPermissions()) {
+                permissions.add(pm);
+            }
+        }
+        return isRuntimePermissionGranted(context, permissions);
+    }
+
+    public static boolean isRuntimePermissionGranted(Context context, Collection<String> permissions) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             // Runtime Permission非対応なので常にtrue
             return true;
@@ -127,6 +153,19 @@ public class PermissionUtil {
         }
 
         return true;
+    }
+
+    /**
+     * call
+     * boolean isRuntimePermissionGranted(Context context, Collection<String> permissions)
+     */
+    public static boolean isRuntimePermissionGranted(Context context, String[] permissions) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            // Runtime Permission非対応なので常にtrue
+            return true;
+        }
+
+        return isRuntimePermissionGranted(context, CollectionUtil.asList(permissions));
     }
 
     /**
