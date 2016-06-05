@@ -67,7 +67,7 @@ public class VibrateManager {
 
             vibrator.vibrate(pattern, repeat);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }
