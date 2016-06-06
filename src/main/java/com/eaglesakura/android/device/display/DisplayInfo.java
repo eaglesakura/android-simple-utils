@@ -86,6 +86,13 @@ public class DisplayInfo {
     }
 
     /**
+     * レイアウト切り分けに使用するvalues-sw${smallest-width}dpを取得する
+     */
+    public int getSmallestWidthDp() {
+        return (((int) Math.min(getWidthDp(), getHeightDp())) / 10) * 10;
+    }
+
+    /**
      * ディスプレイの対角線インチ数を取得する。
      *
      * ユーザーがわかりやすい、購入時の端末ディスプレイサイズとなる。
