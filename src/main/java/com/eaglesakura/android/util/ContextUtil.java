@@ -23,6 +23,7 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
@@ -51,6 +52,14 @@ public class ContextUtil {
             return (Context) getContext.invoke(obj);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public static LayoutInflater getInflater(Context context) {
+        if (context instanceof Activity) {
+            return ((Activity) context).getLayoutInflater();
+        } else {
+            return LayoutInflater.from(context);
         }
     }
 
