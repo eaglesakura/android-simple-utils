@@ -17,4 +17,17 @@ public class AndroidNetworkUtil {
             throw new NetworkNotConnectException();
         }
     }
+
+    /**
+     * ネットワークに接続されている場合true
+     */
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager service = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = service.getActiveNetworkInfo();
+        if (info == null || !info.isConnected()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
