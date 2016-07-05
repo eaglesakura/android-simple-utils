@@ -114,6 +114,7 @@ public class StorageInfo {
 
             if (!StringUtil.isEmpty(path)
                     && !"/storage/emulated/legacy".equals(path)
+                    && !"/sdcard".equals(path)
                     && (check = new File(path)).exists()) {
                 // emulatedじゃないパスがひっかかれば、それがSDカードパスになる
                 result.add(new StorageInfo(true, check));
