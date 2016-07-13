@@ -3,11 +3,15 @@ package com.eaglesakura.android.util;
 import com.eaglesakura.math.Vector2;
 import com.eaglesakura.util.EncodeUtil;
 
+import org.apache.http.conn.ConnectTimeoutException;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Service;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -18,9 +22,11 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -453,5 +459,36 @@ public class ContextUtil {
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, sender.getClass().getSimpleName());
         wakeLock.acquire();
         return wakeLock;
+    }
+
+    /**
+     * アプリの設定画面を開くIntentを取得する
+     */
+    public static Intent getAppSettingIntent(Context context) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + context.getPackageName()));
+        return intent;
+    }
+
+    /**
+     * アプリのオーバーレイ設定を開く
+     */
+    public static Intent getAppOverlaySettingIntent(Context context) {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+        intent.setData(Uri.parse("package:" + context.getPackageName()));
+        return intent;
+    }
+
+    /**
+     * アプリ設定を開く。
+     *
+     * 直接アプリ設定内の画面を開くことに失敗した場合は、標準のアプリ設定画面を開く。
+     */
+    public static void showAppSetting(Context context, Intent intent) {
+        try {
+            context.startActivity(intent);
+        } catch (Exception e) {
+            context.startActivity(getAppSettingIntent(context));
+        }
     }
 }
