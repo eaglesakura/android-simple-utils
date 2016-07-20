@@ -49,6 +49,8 @@ public class DisplayInfo {
 
     private DisplayMetrics mDisplayMetrics = new DisplayMetrics();
 
+    private Dpi mDpi;
+
     public DisplayInfo(Context context) {
         Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         display.getMetrics(mDisplayMetrics);
@@ -128,8 +130,8 @@ public class DisplayInfo {
         mHeightDp = (float) mHeightPixel / mDisplayMetrics.density;
 
         mWidthInch = (float) mWidthPixel / mDisplayMetrics.xdpi;
-        mHeightInch = (float) mHeightPixel / mDisplayMetrics.xdpi;
-
+        mHeightInch = (float) mHeightPixel / mDisplayMetrics.ydpi;
+        mDpi = Dpi.toDpi(mDisplayMetrics.xdpi, mDisplayMetrics.ydpi);
         {
             int diagonal = (int) (getDiagonalInch() * 100.0f);
             diagonal += 5;
@@ -174,6 +176,50 @@ public class DisplayInfo {
 
     public Type getDeviceType() {
         return mDeviceType;
+    }
+
+    public Dpi getDpi() {
+        return mDpi;
+    }
+
+    public enum Dpi {
+        ldpi,
+        mdpi,
+        tvdpi,
+        hdpi,
+        xhdpi,
+        xxhdpi,
+        xxxhdpi;
+
+        static Dpi toDpi(float xdpi, float ydpi) {
+            final float dpi = Math.min(xdpi, ydpi);
+
+            if (dpi > 480) {
+                return xxxhdpi;
+            }
+
+            if (dpi > 320) {
+                return xxhdpi;
+            }
+
+            if (dpi > 240) {
+                return xhdpi;
+            }
+
+            if (dpi > 210) {
+                return tvdpi;
+            }
+
+            if (dpi > 160) {
+                return hdpi;
+            }
+
+            if (dpi > 120) {
+                return mdpi;
+            }
+
+            return ldpi;
+        }
     }
 
     public enum Type {
