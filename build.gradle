@@ -37,7 +37,11 @@ android {
         targetSdkVersion 24
     }
     lintOptions {
+        disable "DuplicateIds"
         disable "NewApi"
+        disable "InvalidPackage"
+        disable "ProtectedPermissions"
+        disable "MissingTranslation"
     }
 }
 
