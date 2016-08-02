@@ -2,6 +2,7 @@ package com.eaglesakura.android.util;
 
 import com.eaglesakura.util.StringUtil;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStatsManager;
@@ -46,6 +47,7 @@ public class PackageUtil {
     /**
      * トップに起動しているActivityのpackage nameを指定する
      */
+    @SuppressLint("WrongConstant")
     public static String getTopApplicationPackage(Context context) {
 
         if (Build.VERSION.SDK_INT >= 22) {

@@ -26,7 +26,7 @@ public class BasicSpinnerAdapter extends ArrayAdapter<String> {
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         View result = super.getDropDownView(position, convertView, parent);
         if (textRight) {
-            ((TextView) result.findViewById(android.R.id.text1)).setGravity(Gravity.RIGHT);
+            ((TextView) result.findViewById(android.R.id.text1)).setGravity(Gravity.END);
         }
         return result;
     }
@@ -35,7 +35,7 @@ public class BasicSpinnerAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View result = super.getView(position, convertView, parent);
         if (textRight) {
-            ((TextView) result.findViewById(android.R.id.text1)).setGravity(Gravity.RIGHT);
+            ((TextView) result.findViewById(android.R.id.text1)).setGravity(Gravity.END);
         }
         return result;
     }
