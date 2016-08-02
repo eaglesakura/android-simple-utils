@@ -5,14 +5,14 @@ import com.eaglesakura.util.LogUtil;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import android.content.Context;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, packageName = BuildConfig.APPLICATION_ID, sdk = 21)
 public abstract class CiJUnitTester {
 
