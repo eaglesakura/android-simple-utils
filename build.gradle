@@ -12,6 +12,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0-alpha7'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5' // support Lambda
     }
 }
 
@@ -21,13 +22,14 @@ repositories {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda' /* Android Lambda Support */
 
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_7
     }
     defaultConfig {
@@ -35,7 +37,23 @@ android {
         targetSdkVersion 24
     }
     lintOptions {
-        abortOnError false
+        disable "NewApi"
+    }
+}
+
+/**
+ * UnitTest & retro lambda
+ */
+tasks.withType(Test) {
+    project.tasks
+            .findAll {
+        task -> (task.name ==~ /compile.*?TestJava.*?/)
+    }
+    .each { task ->
+        task.doFirst {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+        }
     }
 }
 
