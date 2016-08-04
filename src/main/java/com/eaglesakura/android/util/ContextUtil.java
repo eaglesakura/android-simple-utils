@@ -3,13 +3,10 @@ package com.eaglesakura.android.util;
 import com.eaglesakura.math.Vector2;
 import com.eaglesakura.util.EncodeUtil;
 
-import org.apache.http.conn.ConnectTimeoutException;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Service;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -454,6 +451,7 @@ public class ContextUtil {
      * <br>
      * 戻り値のWakeLockは既にacquire()済みのため、releaseのみに気をつけること。
      */
+    @SuppressLint("Wakelock")
     public static PowerManager.WakeLock cpuWakeLock(Context context, Object sender) {
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, sender.getClass().getSimpleName());

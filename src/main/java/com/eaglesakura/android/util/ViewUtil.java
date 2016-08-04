@@ -1,5 +1,6 @@
 package com.eaglesakura.android.util;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.text.Editable;
@@ -109,7 +110,8 @@ public class ViewUtil {
         int pointerId = (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
         return event.getPointerId(pointerId);
     }
-
+    
+    @SuppressLint("SetJavaScriptEnabled")
     public static WebView setupDefault(WebView webView) {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAppCacheEnabled(true);

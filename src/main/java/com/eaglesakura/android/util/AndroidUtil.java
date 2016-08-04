@@ -1,5 +1,6 @@
 package com.eaglesakura.android.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
@@ -78,8 +79,13 @@ public class AndroidUtil {
     /**
      * 実行されている端末がデバッグモードになっている場合はtrueを返す
      */
+    @SuppressLint("All")
     public static boolean isDeviceDebugMode(Context context) {
-        return Settings.Secure.getInt(context.getContentResolver(), Settings.Global.ADB_ENABLED, 0) != 0;
+        if (Build.VERSION.SDK_INT < 17) {
+            return false;
+        } else {
+            return Settings.Secure.getInt(context.getContentResolver(), Settings.Global.ADB_ENABLED, 0) != 0;
+        }
     }
 
 }

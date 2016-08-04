@@ -18,6 +18,7 @@ import java.util.Set;
 
 public class PermissionUtil {
 
+    @SuppressLint("NewApi")
     public enum PermissionType {
         SelfLocation {
             @Override
