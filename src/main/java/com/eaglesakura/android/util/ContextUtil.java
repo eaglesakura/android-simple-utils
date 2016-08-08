@@ -478,6 +478,14 @@ public class ContextUtil {
     }
 
     /**
+     * 「使用履歴へアクセス」の設定を開く
+     */
+    public static Intent getUsageStatusAcesss(Context context) {
+        Intent intent = new Intent("android.settings.USAGE_ACCESS_SETTINGS");
+        return intent;
+    }
+
+    /**
      * アプリ設定を開く。
      *
      * 直接アプリ設定内の画面を開くことに失敗した場合は、標準のアプリ設定画面を開く。
