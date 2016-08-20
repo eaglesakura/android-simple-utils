@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * SQLite クエリを記述するためのラッパー
  */
+@Deprecated
 public class SQLQuery {
     /**
      * SELECT文に対応する
