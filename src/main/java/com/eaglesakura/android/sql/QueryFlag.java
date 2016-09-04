@@ -1,8 +1,10 @@
 package com.eaglesakura.android.sql;
 
 import com.eaglesakura.util.CollectionUtil;
+import com.eaglesakura.util.StringUtil;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,6 +35,14 @@ public class QueryFlag {
         }
     }
 
+    public boolean contains(String flag) {
+        return mFlags.contains(flag);
+    }
+
+    public boolean contains(long flag) {
+        return contains(String.valueOf(flag));
+    }
+
     /**
      * 文字列をフラグとして扱う
      */
@@ -49,6 +59,14 @@ public class QueryFlag {
      */
     public QueryFlag add(long flag) {
         return add(String.valueOf(flag));
+    }
+
+    /**
+     * 他のフラグリストを追加する
+     */
+    public QueryFlag add(QueryFlag flag) {
+        mFlags.addAll(flag.mFlags);
+        return this;
     }
 
     private List<String> toList() {
@@ -77,11 +95,46 @@ public class QueryFlag {
      */
     @Override
     public String toString() {
+        if (mFlags.isEmpty()) {
+            // フラグが設定されていない
+            return "";
+        }
+
         StringBuilder builder = new StringBuilder();
         for (String flag : toList()) {
             builder.append(SEPARATOR).append(flag);
         }
         builder.append(SEPARATOR);
         return builder.toString();
+    }
+
+    /**
+     * フラグリストの文字列からフラグを再生する
+     */
+    public static QueryFlag parse(@Nullable String flags) {
+        QueryFlag result = new QueryFlag();
+        if (StringUtil.isEmpty(flags)) {
+            return result;
+        }
+
+        for (String flag : flags.split(String.valueOf(SEPARATOR))) {
+            if (!StringUtil.isEmpty(flag)) {
+                result.add(flag);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * フラグ同士の和を取得する
+     *
+     * @param aFlags 文字列フラグA
+     * @param bFlags 文字列フラグB
+     */
+    public static String or(@Nullable String aFlags, @Nullable String bFlags) {
+        QueryFlag flagA = parse(aFlags);
+        QueryFlag flagB = parse(bFlags);
+
+        return flagA.add(flagB).toString();
     }
 }
