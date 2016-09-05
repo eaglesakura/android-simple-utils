@@ -16,7 +16,10 @@ import java.util.Set;
  * SQL内部で文字列としてフラグを管理する
  *
  * 内部のセパレータに半角カンマ`,`を使用するため、フラグにカンマを利用することはできない。
+ *
+ * StringFlagに汎用化したため、非推奨
  */
+@Deprecated
 public class QueryFlag {
     static final char SEPARATOR = ',';
 
