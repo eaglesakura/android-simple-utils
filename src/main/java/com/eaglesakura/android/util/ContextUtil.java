@@ -432,6 +432,23 @@ public class ContextUtil {
     /**
      * string xmlリソース名から文字列リソースを取得する
      */
+    public static String getStringFromIdName(Context context, String resName, Object... arg) {
+        try {
+            int target_id = context.getResources().getIdentifier(
+                    resName,
+                    "string",
+                    context.getPackageName()
+            );
+
+            return context.getResources().getString(target_id, arg);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * string xmlリソース名から文字列リソースを取得する
+     */
     public static Integer getIntegerFromIdName(Context context, String resName) {
         try {
             int target_id = context.getResources().getIdentifier(
