@@ -18,6 +18,8 @@ import java.util.Set;
 public class Storage {
     final File mRoot;
 
+    final int mFlag;
+
     /**
      * 最大容量
      */
@@ -28,9 +30,31 @@ public class Storage {
      */
     long mFreeSize;
 
+    /**
+     * 物理的な外部ストレージである
+     */
+    public static final int FLAG_SDCARD = 0x1 << 0;
+
+    /**
+     * 内部ストレージである
+     */
+    public static final int FLAG_INTERNAL_STORAGE = 0x1 << 1;
+
     public Storage(File root) {
+        this(root, 0x00);
+    }
+
+    public Storage(File root, int flags) {
         mRoot = root;
+        mFlag = flags;
         reloadInfo();
+    }
+
+    /**
+     * 物理的なSDカード挿入されていればtrue
+     */
+    public boolean isSdcard() {
+        return (mFlag & FLAG_SDCARD) == FLAG_SDCARD;
     }
 
     /**
@@ -139,7 +163,7 @@ public class Storage {
                     continue;
                 } else if (file.isDirectory()) {
                     // その他のパスが見つかった
-                    return new Storage(file);
+                    return new Storage(file, FLAG_SDCARD);
                 }
             }
         }
@@ -147,7 +171,7 @@ public class Storage {
         // 事前設定されたテーブルから検索する
         for (File path : DEVICE_CUSTOM_PATH) {
             if (path.isDirectory()) {
-                return new Storage(path);
+                return new Storage(path, FLAG_SDCARD);
             }
         }
 
