@@ -35,6 +35,9 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 24
+
+        // Device Test
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"    // JUnit4
     }
     lintOptions {
         disable "DuplicateIds"
@@ -79,6 +82,9 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     testCompile "org.robolectric:robolectric:3.0"
+
+    androidTestCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test:runner:0.4.+'
 }
 
 apply plugin: 'maven'

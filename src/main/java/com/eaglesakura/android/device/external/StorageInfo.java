@@ -15,7 +15,10 @@ import java.util.List;
 
 /**
  * 端末のストレージ情報を管理する
+ *
+ * API整理とAndroid 6.0対応のため、Storageクラスを推奨。
  */
+@Deprecated
 @SuppressLint("all")
 public class StorageInfo {
     /**
