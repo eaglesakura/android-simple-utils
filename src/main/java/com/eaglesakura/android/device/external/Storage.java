@@ -1,5 +1,7 @@
 package com.eaglesakura.android.device.external;
 
+import com.eaglesakura.util.CollectionUtil;
+import com.eaglesakura.util.IOUtil;
 import com.eaglesakura.util.StringUtil;
 
 import android.content.Context;
@@ -8,8 +10,10 @@ import android.os.Environment;
 import android.os.StatFs;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -135,6 +139,13 @@ public class Storage {
     ));
 
     /**
+     * SDカードとして扱わないパス一覧
+     */
+    private static final Set<String> FILES_NG_PATH_LIST = new HashSet<>(Arrays.asList(
+            "/storage/emulated", "/storage/self", "/storage/sdcard0", "/sdcard"
+    ));
+
+    /**
      * /storage/以下のディレクトリ一覧
      */
     private static final File[] STORAGE_DIRECTORIES = new File("/storage/").listFiles();
@@ -162,8 +173,30 @@ public class Storage {
             return storage;
         } else {
             // package名を含まないのなら、フラグを引き継いでパスを生成する
-            return new Storage(new File(storage.getPath(), "Android/data/" + context.getPackageName()), storage.mFlag);
+            if (Build.VERSION.SDK_INT >= 19) {
+                File[] externalFilesDirs = context.getExternalFilesDirs(null);
+                for (File file : externalFilesDirs) {
+                    // 正しいデータパスをチェックしてそれを返却する
+                    if (file.getAbsolutePath().startsWith(storage.getPath().getAbsolutePath())) {
+                        // 開始パスが一致したら、それを返却できる
+                        return new Storage(file);
+                    }
+                }
+            }
+
+            // それより古いバージョンであれば、Pathを揃える
+            return new Storage(IOUtil.mkdirs(new File(storage.getPath(), "Android/data/" + context.getPackageName() + "/files")), storage.mFlag);
         }
+    }
+
+    private static boolean isFilesNgPath(String absPath) {
+        for (String ng : FILES_NG_PATH_LIST) {
+            if (absPath.startsWith(ng)) {
+                return true;
+            }
+        }
+
+        return false; // OK
     }
 
     /**
@@ -172,6 +205,37 @@ public class Storage {
      * SDカードが挿入されている場合はそちらを優先し、挿入されていない場合は外部ストレージ領域を取得する。
      */
     public static Storage getExternalStorage(Context context) {
+        final List<File> EXTERNAL_FILES;
+
+        // package名を含まないのなら、フラグを引き継いでパスを生成する
+        if (Build.VERSION.SDK_INT >= 19) {
+            File[] externalFilesDirs = context.getExternalFilesDirs(null);
+            if (externalFilesDirs != null) {
+                EXTERNAL_FILES = CollectionUtil.asList(externalFilesDirs);
+            } else {
+                EXTERNAL_FILES = new ArrayList<>();
+            }
+        } else {
+            EXTERNAL_FILES = new ArrayList<>();
+        }
+
+        // Contextによって列挙されたパスを優先して検索する
+        for (File path : EXTERNAL_FILES) {
+            String absPath = path.getAbsolutePath();
+
+            if (isFilesNgPath(absPath)) {
+                continue;
+            }
+
+            if (!STORAGE_NG_PATH.contains(path.getName())) {
+                // NGリストにないパスが見つかったら、それのRootを探す
+                String removePath = "/Android/data/" + context.getPackageName() + "/files";
+                String splitPath = absPath.substring(0, absPath.length() - removePath.length());
+
+                return new Storage(new File(splitPath));
+            }
+        }
+
         if (STORAGE_DIRECTORIES != null) {
             for (File file : STORAGE_DIRECTORIES) {
                 if (STORAGE_NG_PATH.contains(file.getName())) {
