@@ -2,10 +2,13 @@ package com.eaglesakura.android.sql;
 
 import android.database.Cursor;
 
+import java.io.Closeable;
+import java.io.IOException;
+
 /**
  * カーソル
  */
-public class SupportCursor {
+public class SupportCursor implements Closeable {
     int mIndex = 0;
 
     private Cursor mCursor;
@@ -60,5 +63,30 @@ public class SupportCursor {
         } finally {
             ++mIndex;
         }
+    }
+
+    public boolean moveToFirst() {
+        try {
+            return mCursor.moveToFirst();
+        } finally {
+            mIndex = 0;
+        }
+    }
+
+    public boolean moveToNext() {
+        try {
+            return mCursor.moveToNext();
+        } finally {
+            mIndex = 0;
+        }
+    }
+
+    public int getCount() {
+        return mCursor.getCount();
+    }
+
+    @Override
+    public void close() throws IOException {
+        mCursor.close();
     }
 }

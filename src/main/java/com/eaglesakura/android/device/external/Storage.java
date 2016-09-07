@@ -45,7 +45,7 @@ public class Storage {
     }
 
     public Storage(File root, int flags) {
-        mRoot = root;
+        mRoot = root.getAbsoluteFile();
         mFlag = flags;
         reloadInfo();
     }
@@ -149,6 +149,22 @@ public class Storage {
             "EXTERNAL_STORAGE2",
             "EXTERNAL_STORAGE"
     };
+
+    /**
+     * データを直接書き込み可能なストレージ領域を取得する。
+     *
+     * /${EXTERNAL}/Android/data/${package_name}/配下は自由に書き込めるため、そちらを指すことでSDカードかつ自由な書き込み領域を返す。
+     */
+    public static Storage getExternalDataStorage(Context context) {
+        Storage storage = getExternalStorage(context);
+        if (storage.getPath().getAbsolutePath().contains(context.getPackageName())) {
+            // package名を既に含んでいるならば、そのまま返せば良い
+            return storage;
+        } else {
+            // package名を含まないのなら、フラグを引き継いでパスを生成する
+            return new Storage(new File(storage.getPath(), "Android/data/" + context.getPackageName()), storage.mFlag);
+        }
+    }
 
     /**
      * 外部ストレージ領域を取得する。
