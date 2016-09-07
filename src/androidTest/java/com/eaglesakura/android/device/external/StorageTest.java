@@ -25,4 +25,17 @@ public class StorageTest {
         assertTrue(storage.getFreeSize() >= 0);
         assertTrue(storage.getMaxSize() >= storage.getFreeSize());
     }
+
+    @Test
+    public void データディレクトリが正しく取得できる() throws Throwable {
+        Storage rootPath = Storage.getExternalStorage(InstrumentationRegistry.getContext());
+        Storage dataPath = Storage.getExternalDataStorage(InstrumentationRegistry.getContext());
+
+
+        LogUtil.out(getClass().getName(), "Root [%s] size[%.1f GB Free / %.1f GB Max]", rootPath.getPath().getAbsolutePath(), rootPath.getFreeSizeGB(), rootPath.getMaxSizeGB());
+        LogUtil.out(getClass().getName(), "Data [%s] size[%.1f GB Free / %.1f GB Max]", dataPath.getPath().getAbsolutePath(), dataPath.getFreeSizeGB(), dataPath.getMaxSizeGB());
+
+        // rootPathの配下に無ければならない
+        assertTrue(dataPath.getPath().getAbsolutePath().startsWith(rootPath.getPath().getAbsolutePath()));
+    }
 }
