@@ -1,8 +1,12 @@
 package com.eaglesakura.android.util;
 
+import com.eaglesakura.lambda.Matcher1;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.support.annotation.IdRes;
 import android.text.Editable;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -110,7 +114,7 @@ public class ViewUtil {
         int pointerId = (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
         return event.getPointerId(pointerId);
     }
-    
+
     @SuppressLint("SetJavaScriptEnabled")
     public static WebView setupDefault(WebView webView) {
         webView.getSettings().setJavaScriptEnabled(true);
@@ -124,4 +128,60 @@ public class ViewUtil {
         });
         return webView;
     }
+
+    public static View findViewById(View view, @IdRes int... id) {
+        for (int i : id) {
+            if (view == null) {
+                return null;
+            }
+            view = view.findViewById(i);
+        }
+        return view;
+    }
+
+    public static View findViewById(Activity activity, @IdRes int... id) {
+        View view = null;
+
+        for (int i : id) {
+            if (view == null) {
+                view = activity.findViewById(i);
+            } else {
+                view = view.findViewById(i);
+            }
+
+            if (view == null) {
+                return null;
+            }
+        }
+        return view;
+    }
+
+    public static View findViewByMatcher(View view, Matcher1<View> matcher) {
+        if (view == null) {
+            return null;
+        }
+
+        try {
+            // ヒットした
+            if (matcher.match(view)) {
+                return view;
+            }
+
+            if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
+                for (int i = 0; i < viewGroup.getChildCount(); ++i) {
+                    View child = findViewByMatcher(viewGroup.getChildAt(i), matcher);
+                    if (child != null) {
+                        return child;
+                    }
+                }
+            }
+
+            // ヒットしなかった
+            return null;
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
