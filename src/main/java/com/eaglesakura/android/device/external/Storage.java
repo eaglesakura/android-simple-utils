@@ -179,7 +179,7 @@ public class Storage {
                     // 正しいデータパスをチェックしてそれを返却する
                     if (file.getAbsolutePath().startsWith(storage.getPath().getAbsolutePath())) {
                         // 開始パスが一致したら、それを返却できる
-                        return new Storage(file);
+                        return new Storage(file, storage.mFlag);
                     }
                 }
             }
@@ -232,7 +232,7 @@ public class Storage {
                 String removePath = "/Android/data/" + context.getPackageName() + "/files";
                 String splitPath = absPath.substring(0, absPath.length() - removePath.length());
 
-                return new Storage(new File(splitPath));
+                return new Storage(new File(splitPath), FLAG_SDCARD);
             }
         }
 
