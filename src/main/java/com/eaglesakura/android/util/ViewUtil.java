@@ -6,7 +6,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -184,4 +186,23 @@ public class ViewUtil {
         }
     }
 
+    /**
+     * スクリーン上の座標を取得する
+     */
+    public static Rect getScreenArea(@NonNull View view) {
+        Rect area = new Rect();
+
+        int[] viewInWindow = new int[2];
+        int[] viewOnScreen = new int[2];
+        int[] windowOnScreen = new int[2];
+
+        view.getLocationInWindow(viewInWindow);
+        view.getLocationOnScreen(viewOnScreen);
+        windowOnScreen[0] = viewOnScreen[0] - viewInWindow[0];
+        windowOnScreen[1] = viewOnScreen[1] - viewInWindow[1];
+
+        view.getGlobalVisibleRect(area);
+        area.offset(windowOnScreen[0], windowOnScreen[1]);
+        return area;
+    }
 }
