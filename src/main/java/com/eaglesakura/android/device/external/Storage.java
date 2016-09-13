@@ -241,7 +241,7 @@ public class Storage {
                 if (STORAGE_NG_PATH.contains(file.getName())) {
                     // 標準パスは適用外
                     continue;
-                } else if (file.isDirectory()) {
+                } else if (file.isDirectory() && !CollectionUtil.isEmpty(file.listFiles())) {
                     // その他のパスが見つかった
                     return new Storage(file, FLAG_SDCARD);
                 }
