@@ -16,7 +16,7 @@ public class StorageTest {
 
     @Test
     public void 容量が取得できる() throws Throwable {
-        Storage storage = Storage.getExternalStorage(InstrumentationRegistry.getContext());
+        Storage storage = Storage.getExternalStorage(InstrumentationRegistry.getTargetContext());
         assertNotNull(storage);
 
         LogUtil.out(getClass().getName(), "Storage path[%s] size[%.1f GB Free / %.1f GB Max]", storage.getPath().getAbsolutePath(), storage.getFreeSizeGB(), storage.getMaxSizeGB());
@@ -28,8 +28,8 @@ public class StorageTest {
 
     @Test
     public void データディレクトリが正しく取得できる() throws Throwable {
-        Storage rootPath = Storage.getExternalStorage(InstrumentationRegistry.getContext());
-        Storage dataPath = Storage.getExternalDataStorage(InstrumentationRegistry.getContext());
+        Storage rootPath = Storage.getExternalStorage(InstrumentationRegistry.getTargetContext());
+        Storage dataPath = Storage.getExternalDataStorage(InstrumentationRegistry.getTargetContext());
 
 
         LogUtil.out(getClass().getName(), "Root [%s] size[%.1f GB Free / %.1f GB Max]", rootPath.getPath().getAbsolutePath(), rootPath.getFreeSizeGB(), rootPath.getMaxSizeGB());

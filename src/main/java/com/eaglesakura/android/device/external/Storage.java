@@ -161,6 +161,24 @@ public class Storage {
             "EXTERNAL_STORAGE"
     };
 
+    private static List<File> getExternalFilesDirs(Context context) {
+        if (Build.VERSION.SDK_INT < 19) {
+            return Arrays.asList(context.getExternalFilesDir(null));
+        }
+
+        List<File> result = new ArrayList<>();
+        for (File file : context.getExternalFilesDirs(null)) {
+            if (file != null) {
+                result.add(file);
+            }
+        }
+        return result;
+    }
+
+    private static boolean isDirectoryAccessGranted(File file) {
+        return file != null && file.isDirectory() && !CollectionUtil.isEmpty(file.listFiles());
+    }
+
     /**
      * データを直接書き込み可能なストレージ領域を取得する。
      *
@@ -173,14 +191,11 @@ public class Storage {
             return storage;
         } else {
             // package名を含まないのなら、フラグを引き継いでパスを生成する
-            if (Build.VERSION.SDK_INT >= 19) {
-                File[] externalFilesDirs = context.getExternalFilesDirs(null);
-                for (File file : externalFilesDirs) {
-                    // 正しいデータパスをチェックしてそれを返却する
-                    if (file.getAbsolutePath().startsWith(storage.getPath().getAbsolutePath())) {
-                        // 開始パスが一致したら、それを返却できる
-                        return new Storage(file, storage.mFlag);
-                    }
+            for (File file : getExternalFilesDirs(context)) {
+                // 正しいデータパスをチェックしてそれを返却する
+                if (file.getAbsolutePath().startsWith(storage.getPath().getAbsolutePath())) {
+                    // 開始パスが一致したら、それを返却できる
+                    return new Storage(file, storage.mFlag);
                 }
             }
 
@@ -205,26 +220,8 @@ public class Storage {
      * SDカードが挿入されている場合はそちらを優先し、挿入されていない場合は外部ストレージ領域を取得する。
      */
     public static Storage getExternalStorage(Context context) {
-        final List<File> EXTERNAL_FILES;
-
-        // package名を含まないのなら、フラグを引き継いでパスを生成する
-        if (Build.VERSION.SDK_INT >= 19) {
-            File[] externalFilesDirs = context.getExternalFilesDirs(null);
-            if (externalFilesDirs != null) {
-                EXTERNAL_FILES = CollectionUtil.asList(externalFilesDirs);
-            } else {
-                EXTERNAL_FILES = new ArrayList<>();
-            }
-        } else {
-            EXTERNAL_FILES = new ArrayList<>();
-        }
-
         // Contextによって列挙されたパスを優先して検索する
-        for (File path : EXTERNAL_FILES) {
-            if (path == null) {
-                continue;
-            }
-
+        for (File path : getExternalFilesDirs(context)) {
             String absPath = path.getAbsolutePath();
 
             if (isFilesNgPath(absPath)) {
@@ -245,7 +242,7 @@ public class Storage {
                 if (STORAGE_NG_PATH.contains(file.getName())) {
                     // 標準パスは適用外
                     continue;
-                } else if (file.isDirectory() && !CollectionUtil.isEmpty(file.listFiles())) {
+                } else if (isDirectoryAccessGranted(file)) {
                     // その他のパスが見つかった
                     return new Storage(file, FLAG_SDCARD);
                 }
