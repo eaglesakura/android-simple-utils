@@ -221,6 +221,10 @@ public class Storage {
 
         // Contextによって列挙されたパスを優先して検索する
         for (File path : EXTERNAL_FILES) {
+            if (path == null) {
+                continue;
+            }
+
             String absPath = path.getAbsolutePath();
 
             if (isFilesNgPath(absPath)) {
