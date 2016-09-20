@@ -20,6 +20,9 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * View系の便利メソッド
  */
@@ -186,6 +189,33 @@ public class ViewUtil {
         }
     }
 
+    public static List<View> listViews(View root, Matcher1<View> matcher) {
+        List<View> result = new ArrayList<>();
+
+        if (root == null) {
+            return result;
+        }
+
+        try {
+            // ヒットした
+            if (matcher.match(root)) {
+                result.add(root);
+            }
+
+            if (root instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) root;
+                for (int i = 0; i < viewGroup.getChildCount(); ++i) {
+                    result.addAll(listViews(viewGroup.getChildAt(i), matcher));
+                }
+            }
+
+            // ヒットしなかった
+            return result;
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * スクリーン上の座標を取得する
      */
@@ -205,4 +235,5 @@ public class ViewUtil {
         area.offset(windowOnScreen[0], windowOnScreen[1]);
         return area;
     }
+
 }
