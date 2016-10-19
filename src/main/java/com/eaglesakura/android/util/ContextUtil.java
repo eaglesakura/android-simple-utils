@@ -24,6 +24,8 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.MenuRes;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -410,6 +412,38 @@ public class ContextUtil {
 
         }
         return false;
+    }
+
+    /**
+     * xmlリソース名からレイアウトリソースを取得する
+     */
+    @LayoutRes
+    public static int getLayoutFromName(Context context, String resName) {
+        try {
+            return context.getResources().getIdentifier(
+                    resName,
+                    "layout",
+                    context.getPackageName()
+            );
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /**
+     * xmlリソース名からメニューリソースを取得する
+     */
+    @MenuRes
+    public static int getMenuFromName(Context context, String resName) {
+        try {
+            return context.getResources().getIdentifier(
+                    resName,
+                    "menu",
+                    context.getPackageName()
+            );
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     /**
