@@ -1,6 +1,5 @@
 package com.eaglesakura.android.util;
 
-import com.eaglesakura.util.EncodeUtil;
 import com.eaglesakura.util.StringUtil;
 
 public class SQLiteUtil {
@@ -15,21 +14,19 @@ public class SQLiteUtil {
     public static String makeSimpleKey(String value) {
         value = StringUtil.macStringToWinString(value);
         value = StringUtil.zenkakuEngToHankakuEng(value);
-        value = StringUtil.replaceAllSimple(value, " ", "_");
-        value = EncodeUtil.toUrl(value);
+        value = StringUtil.replaceAllSimple(value, " ", "[sp]");
+//        value = EncodeUtil.toUrl(value);
         return getInjectionGuard(value);
     }
 
     /**
-     *
+     * LIKE句に使われる文字を置換する
      * @param value
      * @return
      */
     public static String getInjectionGuard(String value) {
-        value = StringUtil.replaceAllSimple(value, "'", "_qt_");
-        value = StringUtil.replaceAllSimple(value, "%", "_pr_");
-        value = StringUtil.replaceAllSimple(value, "#", "_sh_");
-        value = StringUtil.replaceAllSimple(value, "?", "_qn_");
+        value = StringUtil.replaceAllSimple(value, "%", "[[pr]]");
+        value = StringUtil.replaceAllSimple(value, "_", "[[us]]");
         return value;
     }
 }
