@@ -236,4 +236,9 @@ public class ViewUtil {
         return area;
     }
 
+    public static Rect getWindowArea(@NonNull View view) {
+        int[] xy = new int[2];
+        view.getLocationInWindow(xy);
+        return new Rect(xy[0], xy[1], xy[0] + view.getWidth(), xy[1] + view.getHeight());
+    }
 }
