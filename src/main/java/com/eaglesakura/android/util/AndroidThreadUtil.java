@@ -39,4 +39,17 @@ public class AndroidThreadUtil {
         return Thread.currentThread().equals(handler.getLooper().getThread());
     }
 
+    /**
+     * 指定したハンドラのスレッドである場合は処理を実行し、異なるスレッドである場合は処理を投げる
+     *
+     * @param handler  対象ハンドラ
+     * @param runnable 実行処理
+     */
+    public static void postOrRun(Handler handler, Runnable runnable) {
+        if (handler == null || isHandlerThread(handler)) {
+            runnable.run();
+        } else {
+            handler.post(runnable);
+        }
+    }
 }
