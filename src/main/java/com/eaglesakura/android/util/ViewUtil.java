@@ -161,7 +161,7 @@ public class ViewUtil {
         return view;
     }
 
-    public static View findViewByMatcher(View view, Matcher1<View> matcher) {
+    public static <T extends View> T findViewByMatcher(View view, Matcher1<View> matcher) {
         if (view == null) {
             return null;
         }
@@ -169,7 +169,7 @@ public class ViewUtil {
         try {
             // ヒットした
             if (matcher.match(view)) {
-                return view;
+                return (T) view;
             }
 
             if (view instanceof ViewGroup) {
@@ -177,7 +177,7 @@ public class ViewUtil {
                 for (int i = 0; i < viewGroup.getChildCount(); ++i) {
                     View child = findViewByMatcher(viewGroup.getChildAt(i), matcher);
                     if (child != null) {
-                        return child;
+                        return (T) child;
                     }
                 }
             }
