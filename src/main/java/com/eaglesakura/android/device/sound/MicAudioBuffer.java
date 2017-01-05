@@ -123,7 +123,7 @@ public class MicAudioBuffer {
         /**
          * 使用するバッファ数
          */
-        int mBufferNum = 4;
+        int mBufferNum = 8;
 
         /**
          * 入力ソース

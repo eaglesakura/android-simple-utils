@@ -45,7 +45,7 @@ public class MicAudioBufferTest {
             @Override
             public void onRecord(MicAudioBuffer buffer, AudioRecord audio, AudioContext audioContext) {
                 MicBuffer currentBuffer = audioContext.getCurrentBuffer();
-                LogUtil.out("Mic", "onRecord context size[%d] RMS[%.1f]", audioContext.getMicBufferList().size(), currentBuffer.getRMS());
+                LogUtil.out("Mic", "onRecord context size[%d] RMS[%.3f] AVG[%.3f] spike[%s]", audioContext.getMicBufferList().size(), currentBuffer.getRMS(), audioContext.getAverageRMS(), "" + audioContext.isSpikeRMS(0.05));
             }
         }, new CancelCallback() {
             @Override
