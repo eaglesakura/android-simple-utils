@@ -3,6 +3,7 @@ package com.eaglesakura.android.device.sound;
 import com.eaglesakura.android.device.sound.mic.AudioContext;
 import com.eaglesakura.android.device.sound.mic.MicBuffer;
 import com.eaglesakura.android.util.AndroidThreadUtil;
+import com.eaglesakura.android.util.PermissionUtil;
 import com.eaglesakura.collection.DataCollection;
 import com.eaglesakura.lambda.CallbackUtils;
 import com.eaglesakura.lambda.CancelCallback;
@@ -58,6 +59,13 @@ public class MicAudioBuffer {
     }
 
     /**
+     * オーディオサンプリングレートを取得する
+     */
+    public int getSamplingRate() {
+        return mSamplingRate;
+    }
+
+    /**
      * 次の書込み先ポインタを得る
      */
     MicBuffer nextWriteBuffer() {
@@ -85,6 +93,9 @@ public class MicAudioBuffer {
      */
     public void record(RecordCallback callback, CancelCallback cancelCallback) {
         AndroidThreadUtil.assertBackgroundThread();
+        if (!PermissionUtil.isRuntimePermissionGranted(mContext, PermissionUtil.PermissionType.RecordAudio)) {
+            throw new IllegalStateException("Permission not granted");
+        }
 
         AudioRecord audioRecord = null;
         try {
