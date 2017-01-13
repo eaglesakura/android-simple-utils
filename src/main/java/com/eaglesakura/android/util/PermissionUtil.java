@@ -78,6 +78,18 @@ public class PermissionUtil {
                         Manifest.permission.CAMERA
                 };
             }
+        },
+
+        /**
+         * マイクからの集音を許可する
+         */
+        RecordAudio {
+            @Override
+            public String[] getPermissions() {
+                return new String[]{
+                        Manifest.permission.RECORD_AUDIO
+                };
+            }
         };
 
         public abstract String[] getPermissions();
