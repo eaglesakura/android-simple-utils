@@ -14,7 +14,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.support.annotation.NonNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -239,4 +242,43 @@ public class ImageUtil {
         return image;
     }
 
+    /**
+     * Drawableの内容をBitmapに焼きこんで返却する
+     *
+     * @param drawable もとのDrawable
+     * @param pixel    長辺のピクセル数
+     */
+    @NonNull
+    public static Bitmap toBitmap(@NonNull Drawable drawable, int pixel) {
+        Rect rawBounds = new Rect(drawable.getBounds());
+
+        int width = drawable.getMinimumWidth();
+        int height = drawable.getMinimumHeight();
+        {
+            if (width > height) {
+                // 横長
+                float scale = (float) pixel / (float) width;
+                width = pixel;
+                height = (int) (scale * height);
+            } else {
+                // 縦長
+                float scale = (float) pixel / (float) height;
+                width = (int) (scale * width);
+                height = pixel;
+            }
+        }
+        Rect newBounds = new Rect(0, 0, width, height);
+
+        // 描画用のメモリを用意して焼き込む
+        Bitmap dst = Bitmap.createBitmap(newBounds.width(), newBounds.height(), Bitmap.Config.ARGB_8888);
+
+        drawable.setBounds(newBounds);
+        {
+            Canvas canvas = new Canvas(dst);
+            drawable.draw(canvas);
+        }
+        // 描画位置を元に戻す
+        drawable.setBounds(rawBounds);
+        return dst;
+    }
 }
