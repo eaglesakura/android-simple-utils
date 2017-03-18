@@ -11,8 +11,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5' // support Lambda
+        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'me.tatarka:gradle-retrolambda:3.5.0' // support Lambda
     }
 }
 
@@ -76,17 +76,17 @@ dependencies {
         compile project(':eglibrary:simple-logger')
         compile project(':eglibrary:simple-utils')
     } else {
-        compile 'com.eaglesakura:simple-logger:1.+'
-        compile 'com.eaglesakura:simple-utils:1.+'
+        compile "com.eaglesakura:simple-logger:1.2.449"
+        compile "com.eaglesakura:simple-utils:1.1.556"
     }
 
-    compile "com.android.support:support-annotations:${ANDROID_SUPPORT_LIB_VERSION}"
+    compile "com.android.support:support-annotations:25.3.0"
 
     testCompile 'junit:junit:4.12'
-    testCompile "org.robolectric:robolectric:3.0"
+    testCompile "org.robolectric:robolectric:3.1.1"
 
     androidTestCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test:runner:0.4.+'
+    androidTestCompile 'com.android.support.test:runner:0.5'
 }
 
 apply plugin: 'maven'
@@ -142,19 +142,6 @@ uploadArchives {
             pom.version = ARTIFACT_VERSION + getArtifactVersionSuffix()
             pom.groupId = "com.eaglesakura"
             pom.artifactId = ARTIFACT_NAME
-        }
-    }
-}
-
-[uploadArchives.repositories.mavenDeployer]*.pom*.whenConfigured { pom ->
-    pom.project {
-        inceptionYear '2016'
-        packaging 'aar'
-        licenses {
-            license {
-                name 'MIT License'
-                url "https://raw.githubusercontent.com/eaglesakura/${ARTIFACT_NAME}/master/LICENSE.txt"
-            }
         }
     }
 }
