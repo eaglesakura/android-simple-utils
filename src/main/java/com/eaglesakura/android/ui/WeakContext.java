@@ -1,5 +1,6 @@
 package com.eaglesakura.android.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.Service;
@@ -11,15 +12,16 @@ import java.lang.ref.WeakReference;
  * Activity/Fragment/Serviceを強参照しない形で保持を行う。
  */
 public class WeakContext {
+
     /**
      * MainContext
      */
-    final protected WeakReference<Object> owner;
+    final protected WeakReference<Object> mOwner;
 
     /**
      * ApplicationContext
      */
-    final private Context appContext;
+    final private Context mAppContext;
 
     /**
      * Activityから生成する
@@ -40,20 +42,21 @@ public class WeakContext {
     }
 
     protected WeakContext(Object obj, Context appContext) {
-        this.owner = new WeakReference<Object>(obj);
-        this.appContext = appContext;
+        this.mOwner = new WeakReference<Object>(obj);
+        this.mAppContext = appContext;
     }
 
     public Service getService() {
-        Object obj = owner.get();
+        Object obj = mOwner.get();
         if (obj instanceof Service) {
             return (Service) obj;
         }
         return null;
     }
 
+    @SuppressLint("NewApi")
     public Activity getActivity() {
-        Object obj = owner.get();
+        Object obj = mOwner.get();
         if (obj instanceof Activity) {
             return (Activity) obj;
         } else if (obj instanceof Fragment) {
@@ -63,7 +66,7 @@ public class WeakContext {
     }
 
     public Fragment getFragment() {
-        Object obj = owner.get();
+        Object obj = mOwner.get();
         if (obj instanceof Fragment) {
             return (Fragment) obj;
         }
@@ -74,13 +77,13 @@ public class WeakContext {
      * オーナーオブジェクトが有効であればtrue
      */
     public boolean isExistOwner() {
-        return owner.get() != null;
+        return mOwner.get() != null;
     }
 
     /**
      * app context
      */
     public Context getApplicationContext() {
-        return appContext;
+        return mAppContext;
     }
 }
