@@ -29,6 +29,8 @@ repositories {
 
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda' /* Android Lambda Support */
+group = "com.eaglesakura"
+version = ARTIFACT_VERSION + getArtifactVersionSuffix()
 
 android {
     compileSdkVersion 25
