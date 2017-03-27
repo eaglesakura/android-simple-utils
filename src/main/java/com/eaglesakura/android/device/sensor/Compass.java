@@ -1,4 +1,4 @@
-package com.eaglesakura.android.sensor;
+package com.eaglesakura.android.device.sensor;
 
 import com.eaglesakura.math.Vector3;
 

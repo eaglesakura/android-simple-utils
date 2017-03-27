@@ -61,14 +61,4 @@ public class DeviceNetworkInfo {
         mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
         return this;
     }
-
-    private static DeviceNetworkInfo sInstance;
-
-    public static DeviceNetworkInfo getInstance(Context context) {
-        if (sInstance == null) {
-            sInstance = new DeviceNetworkInfo(context);
-        }
-
-        return sInstance;
-    }
 }

@@ -1,8 +1,7 @@
-package com.eaglesakura.android.app;
+package com.eaglesakura.android.context;
 
 import com.eaglesakura.android.util.PermissionUtil;
 import com.eaglesakura.util.CollectionUtil;
-import com.eaglesakura.util.Util;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

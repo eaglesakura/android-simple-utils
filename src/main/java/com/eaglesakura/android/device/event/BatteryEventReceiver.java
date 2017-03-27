@@ -1,4 +1,4 @@
-package com.eaglesakura.android.system;
+package com.eaglesakura.android.device.event;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
